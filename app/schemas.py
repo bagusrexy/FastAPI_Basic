@@ -1,5 +1,6 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, validator
 from datetime import datetime
+from fastapi import HTTPException, status
 
 class PostBase(BaseModel):
     title: str
@@ -19,6 +20,13 @@ class Post(PostBase):
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
+
+    @validator("email", "password")
+    def check_is_empty(cls, value):
+        if value == None:
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                                details=f"Field is required, can't be empty")
+        return value
 
 class UserOut(BaseModel):
     id: int

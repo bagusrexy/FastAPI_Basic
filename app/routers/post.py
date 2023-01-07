@@ -4,12 +4,9 @@ from typing import List
 from .. import models, schemas
 from ..database import get_db
 
-router = APIRouter(
-    prefix="/posts",
-    tags=['posts']
-)
+router = APIRouter()
 
-@router.get("/", status_code=status.HTTP_200_OK, response_model=List[schemas.Post])
+@router.get("", status_code=status.HTTP_200_OK, response_model=List[schemas.Post])
 def get_posts(db: Session = Depends(get_db)):
     posts = db.query(models.Post).all()
     # cursor.execute("""SELECT * FROM posts """)
@@ -18,7 +15,7 @@ def get_posts(db: Session = Depends(get_db)):
 
     return posts
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
+@router.post("", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def createpost(post: schemas.PostCreate, db: Session = Depends(get_db)):
     # cursor.execute("""INSERT INTscO posts (title, konten, published) VALUES (%s, %s, %s) RETURNING * """, 
     #                 (post.title, post.konten, post.published))
@@ -89,5 +86,3 @@ def get_post(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                             detail= f"post id : {id} tidak ditemukan")
     return{"post_detail": post}
-
-print("hello world")

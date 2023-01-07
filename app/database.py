@@ -5,7 +5,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
 
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:1234@localhost/fastapi'
+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:12345@localhost/fastapi'
 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
