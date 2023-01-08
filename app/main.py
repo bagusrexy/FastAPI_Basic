@@ -37,6 +37,8 @@ app.include_router(
     auth.router,
     tags=['Authenticaton'])
 
+print("hello world")
+
 
 @app.get("/")
 def read_root():
