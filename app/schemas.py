@@ -1,6 +1,7 @@
 from pydantic import BaseModel, EmailStr, validator
 from datetime import datetime
 from fastapi import HTTPException, status
+from typing import Optional
 
 class PostBase(BaseModel):
     title: str
@@ -38,3 +39,10 @@ class UserOut(BaseModel):
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TOkenData(BaseModel):
+    id: Optional[str] = None
